@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="col-xs-12 col-md-12">
+    <a href="#" (click)="linkToCustomerList()">Volver</a>
+  </div>
+</div>
+<br>
+<form [formGroup]="registerForm" (submit)="submit()">
+    <div class="form-group">
+      <label for="firstName">Nombres</label>
+      <input 
+        type="text" 
+        class="form-control" 
+        [ngClass] = "registerForm.get('firstName').invalid && registerForm.get('firstName').touched ? 'is-invalid' : ''"
+        id="firstName" 
+        formControlName="firstName">
+      <small 
+        id="lastName" 
+        class="form-text text-danger"
+        *ngIf="registerForm.get('firstName').invalid && registerForm.get('firstName').touched">
+         Campo requerido
+      </small>
+    </div>
+    <div class="form-group">
+      <label for="lastName">Apellidos</label>
+      <input 
+        type="text" 
+        class="form-control" 
+        [ngClass] = "registerForm.get('lastName').invalid && registerForm.get('lastName').touched ? 'is-invalid' : ''"
+        id="lastName" 
+        formControlName="lastName" >
+      <small 
+        id="lastName" 
+        class="form-text text-danger"
+         *ngIf="registerForm.get('lastName').invalid && registerForm.get('lastName').touched">
+         Campo requerido
+      </small>
+    </div>    
+    <div class="form-group" >
+      <label class="form-check-label" for="dob">Fecha de nacimiento</label>
+      <div class="input-group">
+        <input 
+            id="dob"
+            formControlName="dob"
+            class="form-control"
+            [readonly]="true"
+            [ngClass] = "registerForm.get('dob').invalid && registerForm.get('dob').touched ? 'is-invalid' : ''"
+            placeholder="dd/mm/yyyy"            
+            name="dob" 
+            ngbDatepicker 
+            #dob="ngbDatepicker">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="dob.toggle()" type="button"></button>
+        </div>
+      </div>
+      <small id="dob" class="form-text text-danger" *ngIf="registerForm.get('dob').invalid && registerForm.get('dob').touched">Fecha inválida</small>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="(isLoading$ | async)">
+        <span *ngIf="(isLoading$ | async)" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Registrar
+    </button>
+</form>
+<div class="row" *ngIf="(showErrorAlert$ | async)">
+  <div class="col-xs-12 col-md-8 offset-md-2">
+    <cl-alert [status]="'danger'" [message]="errorMessage"></cl-alert>
+  </div>
+</div>
+<div class="row" *ngIf="(showSuccessAlert$ | async)">
+  <div class="col-xs-12 col-md-8 offset-md-2">
+    <cl-alert [status]="'success'" [message]="successMessage"></cl-alert>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-xs-12 col-md-12">
+    <cl-overview [ageList]="ageList"></cl-overview>
+  </div>
+  <br>
+  <div class="col-xs-12 col-md-12">
+    <div class="row">
+      <div class="col-md-4 offset-md-8">
+        <button class="btn btn-success btn-new-customer" (click)="linkToNewCustomer()">Nuevo cliente</button>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-md-12">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nombres</th>
+          <th scope="col">Apellidos</th>
+          <th scope="col">Edad</th>
+          <th scope="col">Fecha de nacimiento</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of customers$ | async; let index= index;">
+          <th scope="row">{{index + 1}}</th>
+          <td>{{customer.firstName}}</td>
+          <td>{{customer.lastName}}</td>
+          <td>{{customer.age}}</td>
+          <td>{{customer.dob}}</td>
+        </tr>    
+      </tbody>
+    </table>
+  </div>
+</div>
